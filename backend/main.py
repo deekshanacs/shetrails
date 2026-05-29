@@ -23,7 +23,7 @@ app = FastAPI(title="SheGuard Security Backend", version="1.0.0")
 # Wildcard "*" is dangerous in production — it allows any site to call the API.
 ALLOWED_ORIGINS = os.environ.get(
     "ALLOWED_ORIGINS",
-    "https://deekshanacs-sheguard-ai.hf.space,http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,http://127.0.0.1:5173"
+    "https://deekshanacs-sheguard-ai.hf.space,https://shetrails.onrender.com,http://localhost:7860,http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,http://127.0.0.1:5173"
 ).split(",")
 
 app.add_middleware(
