@@ -1,0 +1,103 @@
+project:
+  name: ForensicAI
+  version: "1.0.0"
+  seed: 42
+
+paths:
+  data_root: data/
+  raw_data: data/raw/
+  processed_data: data/processed/
+  splits_dir: data/splits/
+  checkpoints: outputs/checkpoints/
+  logs: outputs/logs/
+  reports: outputs/reports/
+  heatmaps: outputs/heatmaps/
+  masks: outputs/masks/
+
+datasets:
+  faceforensics:
+    path: data/raw/FaceForensics++
+    compression: [c0, c23, c40]
+    methods: [Deepfakes, Face2Face, FaceSwap, NeuralTextures, FaceShifter]
+  celebdf:
+    path: data/raw/Celeb-DF
+  dfdc:
+    path: data/raw/DFDC
+  casia:
+    path: data/raw/CASIA
+    version: v2
+  columbia:
+    path: data/raw/Columbia
+  coverage:
+    path: data/raw/Coverage
+  imd2020:
+    path: data/raw/IMD2020
+  nist:
+    path: data/raw/NIST_Nimble
+  synthetic:
+    midjourney: data/raw/Midjourney
+    stable_diffusion: data/raw/StableDiffusion
+    dalle: data/raw/DALLE
+    flux: data/raw/Flux
+
+image:
+  size: 224
+  face_size: 224
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+  ela_quality: 90
+
+training:
+  batch_size: 32
+  num_workers: 8
+  epochs: 50
+  warmup_epochs: 5
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  label_smoothing: 0.1
+  mixup_alpha: 0.4
+  cutmix_alpha: 1.0
+  gradient_clip: 1.0
+  fp16: true
+  ema_decay: 0.9998
+
+models:
+  rgb:
+    name: convnextv2_large
+    pretrained: true
+    dropout: 0.3
+  vit:
+    name: vit_large_patch16_224
+    pretrained: true
+    dropout: 0.1
+  frequency:
+    backbone: efficientnet_b4
+    use_fft: true
+    use_dct: true
+    use_wavelet: true
+  noise:
+    srm_filters: 30
+    backbone: resnet50
+  ela:
+    backbone: efficientnet_b2
+  face:
+    backbone: efficientnet_b4
+    face_detector: retinaface
+  localization:
+    architecture: segformer_b4
+    encoder_pretrained: true
+
+fusion:
+  method: neural  # xgboost | lightgbm | neural
+  hidden_dims: [256, 128, 64]
+  dropout: 0.3
+  num_features: 8  # 7 model scores + metadata
+
+evaluation:
+  metrics: [accuracy, precision, recall, f1, roc_auc, pr_auc, fpr, fnr]
+  threshold: 0.5
+  ood_datasets: [celebdf, dfdc, casia]
+
+explainability:
+  methods: [gradcam, gradcam_pp, integrated_gradients, attention_rollout]
+  target_layer: auto

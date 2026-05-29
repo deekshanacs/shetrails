@@ -1,0 +1,22 @@
+services:
+  # Backend API Web Service (Free Tier)
+  - type: web
+    name: sheguard-api
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    rootDir: backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # Frontend React Static Site (Free Tier)
+  - type: web
+    name: sheguard-app
+    env: static
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: http://sheguard-api/*

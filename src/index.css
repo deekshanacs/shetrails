@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 240 15% 5%;
+    --foreground: 220 20% 95%;
+
+    --card: 240 15% 9%;
+    --card-foreground: 220 20% 95%;
+
+    --popover: 240 15% 9%;
+    --popover-foreground: 220 20% 95%;
+
+    --primary: 270 80% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 15% 15%;
+    --secondary-foreground: 220 20% 90%;
+
+    --muted: 240 10% 14%;
+    --muted-foreground: 220 10% 55%;
+
+    --accent: 200 100% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 260 20% 18%;
+    --input: 260 20% 18%;
+    --ring: 270 80% 65%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --neon-purple: 270 80% 65%;
+    --neon-blue: 200 100% 55%;
+    --neon-pink: 330 80% 65%;
+    --cyber-dark: 240 15% 5%;
+    --cyber-surface: 240 15% 9%;
+    --cyber-border: 260 20% 18%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(270 80% 65%), hsl(200 100% 55%));
+    --gradient-accent: linear-gradient(135deg, hsl(330 80% 65%), hsl(270 80% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(270 80% 65% / 0.3), hsl(200 100% 55% / 0.2), hsl(330 80% 65% / 0.2));
+
+    --glow-purple: 0 0 20px hsl(270 80% 65% / 0.4), 0 0 60px hsl(270 80% 65% / 0.15);
+    --glow-blue: 0 0 20px hsl(200 100% 55% / 0.4), 0 0 60px hsl(200 100% 55% / 0.15);
+    --glow-pink: 0 0 20px hsl(330 80% 65% / 0.4), 0 0 60px hsl(330 80% 65% / 0.15);
+
+    --font-display: 'Orbitron', monospace;
+    --font-body: 'Inter', sans-serif;
+
+    --sidebar-background: 240 15% 7%;
+    --sidebar-foreground: 220 20% 90%;
+    --sidebar-primary: 270 80% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 15% 12%;
+    --sidebar-accent-foreground: 220 20% 90%;
+    --sidebar-border: 260 20% 18%;
+    --sidebar-ring: 270 80% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-xl border border-border;
+    background: hsl(var(--cyber-surface) / 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    border-color: hsl(var(--neon-purple) / 0.5);
+    box-shadow: var(--glow-purple);
+    transform: translateY(-4px);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--neon-purple) / 0.5), 0 0 40px hsl(var(--neon-purple) / 0.2);
+  }
+
+  .glow-text-blue {
+    text-shadow: 0 0 20px hsl(var(--neon-blue) / 0.5), 0 0 40px hsl(var(--neon-blue) / 0.2);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .gradient-text-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-accent);
+  }
+
+  .neon-border {
+    border: 1px solid hsl(var(--neon-purple) / 0.3);
+    box-shadow: inset 0 0 20px hsl(var(--neon-purple) / 0.05), var(--glow-purple);
+  }
+
+  .cyber-grid {
+    background-image:
+      linear-gradient(hsl(var(--neon-purple) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--neon-purple) / 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .btn-glow {
+    @apply relative overflow-hidden rounded-lg px-8 py-3 font-semibold transition-all duration-300;
+    background: var(--gradient-primary);
+    box-shadow: 0 0 20px hsl(var(--neon-purple) / 0.3);
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--neon-purple) / 0.5), 0 0 60px hsl(var(--neon-purple) / 0.2);
+    transform: translateY(-2px);
+  }
+
+  .input-cyber {
+    @apply w-full rounded-lg border border-border bg-secondary px-4 py-3 text-foreground transition-all duration-300;
+  }
+
+  .input-cyber:focus {
+    @apply outline-none;
+    border-color: hsl(var(--neon-purple) / 0.6);
+    box-shadow: 0 0 15px hsl(var(--neon-purple) / 0.2);
+  }
+
+  .risk-safe {
+    color: hsl(145 70% 50%);
+    text-shadow: 0 0 10px hsl(145 70% 50% / 0.4);
+  }
+
+  .risk-suspicious {
+    color: hsl(45 100% 55%);
+    text-shadow: 0 0 10px hsl(45 100% 55% / 0.4);
+  }
+
+  .risk-manipulated {
+    color: hsl(0 75% 55%);
+    text-shadow: 0 0 10px hsl(0 75% 55% / 0.4);
+  }
+
+  .progress-safe {
+    background: hsl(145 70% 50%);
+    box-shadow: 0 0 10px hsl(145 70% 50% / 0.5);
+  }
+
+  .progress-suspicious {
+    background: hsl(45 100% 55%);
+    box-shadow: 0 0 10px hsl(45 100% 55% / 0.5);
+  }
+
+  .progress-manipulated {
+    background: hsl(0 75% 55%);
+    box-shadow: 0 0 10px hsl(0 75% 55% / 0.5);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(240 15% 5%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(260 20% 25%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(270 80% 65% / 0.5);
+}
+
+@keyframes scan {
+  0% {
+    top: 0%;
+  }
+  50% {
+    top: 100%;
+  }
+  100% {
+    top: 0%;
+  }
+}
